@@ -1,230 +1,177 @@
 import Link from "next/link"
-import {
-  ArrowRight, Plus, Sparkles, BookOpen, Download,
-  X, Check, Pencil, UserX
-} from "lucide-react"
+import { Pencil, Sparkles, ArrowRight, Plus, BookOpen, UserX, Download, X, Check } from "lucide-react"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-[#1a1a1a] antialiased leading-relaxed">
-
+    <>
       {/* ── Nav ── */}
-      <nav className="flex items-center justify-between px-8 py-3.5 border-b border-black/10 bg-white sticky top-0 z-[100]">
-        <Link href="/" className="flex items-center gap-2.5 font-medium text-[15px] text-[#1a1a1a]">
-          <div className="w-8 h-8 rounded-lg bg-[#534AB7] flex items-center justify-center flex-shrink-0">
-            <Pencil className="w-[15px] h-[15px] text-white" />
+      <nav className="lp-nav" aria-label="Main navigation">
+        <Link href="/" className="lp-nav-logo">
+          <div className="lp-logo-mark" aria-hidden="true">
+            <Pencil className="w-4 h-4 text-white" />
           </div>
           Teacher Co-Pilot
         </Link>
-        <div className="flex items-center gap-1.5">
-          <Link
-            href="/library"
-            className="text-[13px] text-[#6b6b6b] px-3 py-1.5 rounded-lg border border-transparent hover:bg-[#f7f7f5] hover:text-[#1a1a1a] transition-colors"
-          >
-            Library
-          </Link>
-          <Link
-            href="/lesson/new"
-            className="inline-flex items-center gap-1.5 text-[13px] font-medium bg-[#534AB7] text-white px-3 py-1.5 rounded-lg border border-[#534AB7] hover:bg-[#3C3489] hover:border-[#3C3489] transition-colors"
-          >
-            Start planning <ArrowRight className="w-3.5 h-3.5" />
+        <div className="lp-nav-links">
+          <Link href="/library" className="lp-nav-link lp-nav-ghost">Library</Link>
+          <Link href="/lesson/new" className="lp-nav-link primary">
+            Start planning <ArrowRight className="w-[14px] h-[14px]" aria-hidden="true" />
           </Link>
         </div>
       </nav>
 
-      {/* ── Hero ── */}
-      <section className="pt-20 pb-16 px-8 max-w-[700px] mx-auto text-center">
-        <div className="inline-flex items-center gap-1.5 text-[12px] font-medium bg-[#EEEDFE] text-[#534AB7] px-3.5 py-1 rounded-full mb-6">
-          <Sparkles className="w-3 h-3" />
-          Built for K–12 educators
-        </div>
-
-        <h1 className="text-[42px] font-medium leading-[1.18] tracking-[-0.5px] mb-5">
-          Design, teach, and refine{" "}
-          <em className="not-italic text-[#534AB7]">AI literacy lessons</em>
-          {" "}— across every subject
-        </h1>
-
-        <p className="text-[17px] text-[#6b6b6b] leading-[1.7] max-w-[500px] mx-auto mb-8">
-          A memory-enabled planning partner that remembers what worked in your classroom and builds on it every time.
-        </p>
-
-        <div className="flex items-center justify-center gap-2.5 flex-wrap">
-          <Link
-            href="/lesson/new"
-            className="inline-flex items-center gap-1.5 px-[22px] py-2.5 rounded-lg text-[14px] font-medium bg-[#534AB7] text-white border border-[#534AB7] hover:bg-[#3C3489] hover:border-[#3C3489] transition-colors"
-          >
-            <Plus className="w-3.5 h-3.5" /> Start a new lesson
-          </Link>
-          <Link
-            href="/library"
-            className="inline-flex items-center gap-1.5 px-[22px] py-2.5 rounded-lg text-[14px] font-medium bg-transparent text-[#1a1a1a] border border-black/[0.15] hover:bg-[#f7f7f5] transition-colors"
-          >
-            View lesson library
-          </Link>
-        </div>
-
-        <div className="flex items-center justify-center gap-2 mt-7 flex-wrap">
-          {[
-            { icon: <BookOpen className="w-3 h-3 text-[#534AB7]" />, label: "Works with any K–12 subject" },
-            { icon: <UserX className="w-3 h-3 text-[#534AB7]" />, label: "No student AI accounts needed" },
-            { icon: <Download className="w-3 h-3 text-[#534AB7]" />, label: "Export to Markdown in one click" },
-          ].map(({ icon, label }) => (
-            <span key={label} className="inline-flex items-center gap-1.5 text-[12px] text-[#6b6b6b] border border-black/10 px-3 py-1 rounded-full bg-white">
-              {icon}
-              {label}
+      <main>
+        {/* ── Hero ── */}
+        <section className="lp-hero" aria-labelledby="hero-heading">
+          <div className="lp-hero-pill" aria-hidden="true">
+            <Sparkles aria-hidden="true" />
+            Built for K–12 educators
+          </div>
+          <h1 className="lp-h1" id="hero-heading">
+            Design, teach, and refine <em>AI literacy lessons</em> — across every subject
+          </h1>
+          <p className="lp-hero-p">
+            A memory-enabled planning partner that remembers what worked in your classroom and builds on it every time.
+          </p>
+          <div className="lp-hero-actions">
+            <Link href="/lesson/new" className="lp-btn primary">
+              <Plus className="w-[14px] h-[14px]" aria-hidden="true" /> Start a new lesson
+            </Link>
+            <Link href="/library" className="lp-btn ghost">
+              View lesson library
+            </Link>
+          </div>
+          <div className="lp-chips" aria-label="Key features">
+            <span className="lp-chip">
+              <BookOpen aria-hidden="true" /> Works with any K–12 subject
             </span>
-          ))}
-        </div>
-      </section>
+            <span className="lp-chip">
+              <UserX aria-hidden="true" /> No student AI accounts needed
+            </span>
+            <span className="lp-chip">
+              <Download aria-hidden="true" /> Export to Markdown in one click
+            </span>
+          </div>
+        </section>
 
-      <div className="h-px bg-black/10" />
+        <hr className="lp-divider" />
 
-      {/* ── Design / Create / Reflect ── */}
-      <section className="py-14 px-8 max-w-[760px] mx-auto">
-        <p className="text-[11px] font-medium tracking-[0.09em] uppercase text-[#534AB7] mb-2.5">How it works</p>
-        <h2 className="text-[26px] font-medium mb-2.5">A workflow built around how you actually teach</h2>
-        <p className="text-[15px] text-[#6b6b6b] leading-[1.7] max-w-[520px] mb-9">
-          Not a one-shot generator — a three-phase partner for the full instructional cycle.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {[
-            {
-              phase: "Phase 1",
-              title: "Design",
-              desc: "Frame learning goals, surface student questions, connect to standards, and plan the full lesson flow before writing a single activity.",
-            },
-            {
-              phase: "Phase 2",
-              title: "Create",
-              desc: "Build activities, student steps, teacher moves, and discussion prompts — then revise through natural conversation until it's classroom-ready.",
-            },
-            {
-              phase: "Phase 3",
-              title: "Reflect",
-              desc: "Save post-lesson insights as reusable memory. Future lessons automatically improve from what you learn about your students.",
-            },
-          ].map(({ phase, title, desc }) => (
-            <div key={phase} className="bg-white border border-black/10 rounded-xl py-5 pr-5 pl-6 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-[3px] h-full bg-[#534AB7]" />
-              <span className="inline-block text-[11px] font-medium text-[#534AB7] bg-[#EEEDFE] px-2.5 py-0.5 rounded-full mb-3">
-                {phase}
-              </span>
-              <h3 className="text-[16px] font-medium mb-1.5">{title}</h3>
-              <p className="text-[13px] text-[#6b6b6b] leading-[1.6]">{desc}</p>
+        {/* ── Design / Create / Reflect ── */}
+        <section className="lp-section" aria-labelledby="phases-heading">
+          <p className="lp-eyebrow" aria-hidden="true">How it works</p>
+          <h2 className="lp-section-title" id="phases-heading">A workflow built around how you actually teach</h2>
+          <p className="lp-section-sub">Not a one-shot generator — a three-phase partner for the full instructional cycle.</p>
+          <div className="lp-phase-grid">
+            <div className="lp-phase-card">
+              <div className="lp-phase-accent" aria-hidden="true" />
+              <span className="lp-phase-num">Phase 1</span>
+              <h3>Design</h3>
+              <p>Frame learning goals, surface student questions, connect to standards, and plan the full lesson flow before writing a single activity.</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="h-px bg-black/10" />
-
-      {/* ── Compare ── */}
-      <section className="py-14 px-8 max-w-[760px] mx-auto">
-        <p className="text-[11px] font-medium tracking-[0.09em] uppercase text-[#534AB7] mb-2.5">What makes this different</p>
-        <h2 className="text-[26px] font-medium mb-2.5">A planning partner, not a plan printer</h2>
-        <p className="text-[15px] text-[#6b6b6b] leading-[1.7] max-w-[520px] mb-9">
-          The difference shows up in every interaction.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="bg-white border border-black/10 rounded-xl p-5">
-            <h4 className="text-[12px] font-medium tracking-[0.05em] uppercase text-[#9b9b9b] mb-4">Other AI tools</h4>
-            <ul className="flex flex-col gap-2.5">
-              {[
-                "One-shot output, no revision",
-                "No memory of what worked",
-                "Ignores your curriculum context",
-                "Generic, not subject-aligned",
-              ].map(item => (
-                <li key={item} className="flex items-start gap-2 text-[13px] leading-[1.5]">
-                  <X className="w-3.5 h-3.5 text-[#9b9b9b] flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div className="lp-phase-card">
+              <div className="lp-phase-accent" aria-hidden="true" />
+              <span className="lp-phase-num">Phase 2</span>
+              <h3>Create</h3>
+              <p>Build activities, student steps, teacher moves, and discussion prompts — then revise through natural conversation until it&apos;s classroom-ready.</p>
+            </div>
+            <div className="lp-phase-card">
+              <div className="lp-phase-accent" aria-hidden="true" />
+              <span className="lp-phase-num">Phase 3</span>
+              <h3>Reflect</h3>
+              <p>Save post-lesson insights as reusable memory. Future lessons automatically improve from what you learn about your students.</p>
+            </div>
           </div>
-          <div className="bg-white border border-[#AFA9EC] rounded-xl p-5">
-            <h4 className="text-[12px] font-medium tracking-[0.05em] uppercase text-[#9b9b9b] mb-4">Teacher Co-Pilot</h4>
-            <ul className="flex flex-col gap-2.5">
-              {[
-                "Revise through natural conversation",
-                "Saves teaching insights as memory",
-                "Uses your curriculum and standards",
-                "AI literacy embedded in every subject",
-              ].map(item => (
-                <li key={item} className="flex items-start gap-2 text-[13px] leading-[1.5]">
-                  <Check className="w-3.5 h-3.5 text-[#534AB7] flex-shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+        </section>
+
+        <hr className="lp-divider" />
+
+        {/* ── Compare ── */}
+        <section className="lp-section" aria-labelledby="compare-heading">
+          <p className="lp-eyebrow" aria-hidden="true">What makes this different</p>
+          <h2 className="lp-section-title" id="compare-heading">A planning partner, not a plan printer</h2>
+          <p className="lp-section-sub">The difference shows up in every interaction.</p>
+          <div className="lp-compare-grid">
+            <div className="lp-compare-card bad">
+              <h4>Other AI tools</h4>
+              <ul>
+                {[
+                  "One-shot output, no revision",
+                  "No memory of what worked",
+                  "Ignores your curriculum context",
+                  "Generic, not subject-aligned",
+                ].map(item => (
+                  <li key={item}><X aria-hidden="true" /> {item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="lp-compare-card good">
+              <h4>Teacher Co-Pilot</h4>
+              <ul>
+                {[
+                  "Revise through natural conversation",
+                  "Saves teaching insights as memory",
+                  "Uses your curriculum and standards",
+                  "AI literacy embedded in every subject",
+                ].map(item => (
+                  <li key={item}><Check aria-hidden="true" /> {item}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="h-px bg-black/10" />
+        <hr className="lp-divider" />
 
-      {/* ── Steps ── */}
-      <section className="py-14 px-8 max-w-[760px] mx-auto">
-        <p className="text-[11px] font-medium tracking-[0.09em] uppercase text-[#534AB7] mb-2.5">Get started</p>
-        <h2 className="text-[26px] font-medium mb-2.5">From rough idea to classroom-ready lesson</h2>
-        <p className="text-[15px] text-[#6b6b6b] leading-[1.7] max-w-[520px] mb-9">
-          Three steps in a single conversation.
-        </p>
-        <ol className="flex flex-col">
-          {[
-            {
-              num: "1",
-              title: "Upload your curriculum or standards",
-              desc: "Bring in unit goals, academic standards, school AI policy, or past lesson feedback. The co-pilot retrieves the right context automatically.",
-            },
-            {
-              num: "2",
-              title: "Tell the co-pilot what you're planning",
-              desc: "Describe the grade level, topic, lesson goal, and student needs. The co-pilot asks only what it needs and generates a first draft.",
-            },
-            {
-              num: "3",
-              title: "Revise, teach, and reflect",
-              desc: "Improve the lesson through conversation, export when ready, and save post-lesson insights as memory for next time.",
-            },
-          ].map(({ num, title, desc }, i) => (
-            <li key={num} className={`flex gap-5 items-start py-5 ${i < 2 ? "border-b border-black/10" : ""}`}>
-              <div className="w-8 h-8 rounded-full bg-[#EEEDFE] text-[#534AB7] flex items-center justify-center text-[13px] font-medium flex-shrink-0">
-                {num}
-              </div>
+        {/* ── Steps ── */}
+        <section className="lp-section" aria-labelledby="steps-heading">
+          <p className="lp-eyebrow" aria-hidden="true">Get started</p>
+          <h2 className="lp-section-title" id="steps-heading">From rough idea to classroom-ready lesson</h2>
+          <p className="lp-section-sub">Three steps in a single conversation.</p>
+          <ol className="lp-steps">
+            <li className="lp-step">
+              <div className="lp-step-num" aria-hidden="true">1</div>
               <div>
-                <h3 className="text-[15px] font-medium mb-1">{title}</h3>
-                <p className="text-[13px] text-[#6b6b6b] leading-[1.6]">{desc}</p>
+                <h3>Upload your curriculum or standards</h3>
+                <p>Bring in unit goals, academic standards, school AI policy, or past lesson feedback. The co-pilot retrieves the right context automatically.</p>
               </div>
             </li>
-          ))}
-        </ol>
-      </section>
+            <li className="lp-step">
+              <div className="lp-step-num" aria-hidden="true">2</div>
+              <div>
+                <h3>Tell the co-pilot what you&apos;re planning</h3>
+                <p>Describe the grade level, topic, lesson goal, and student needs. The co-pilot asks only what it needs and generates a first draft.</p>
+              </div>
+            </li>
+            <li className="lp-step">
+              <div className="lp-step-num" aria-hidden="true">3</div>
+              <div>
+                <h3>Revise, teach, and reflect</h3>
+                <p>Improve the lesson through conversation, export when ready, and save post-lesson insights as memory for next time.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
 
-      {/* ── CTA ── */}
-      <div className="px-8 pb-14">
-        <div className="bg-[#EEEDFE] rounded-xl px-8 py-11 text-center max-w-[760px] mx-auto">
-          <h2 className="text-[24px] font-medium mb-3">Ready to design your next AI literacy lesson?</h2>
-          <p className="text-[15px] text-[#534AB7] mb-7 leading-[1.7]">
-            Start with a standard, a classroom question, or a rough idea.<br />
-            The co-pilot turns it into something thoughtful and age-appropriate.
-          </p>
-          <Link
-            href="/lesson/new"
-            className="inline-flex items-center gap-1.5 px-[22px] py-2.5 rounded-lg text-[14px] font-medium bg-[#534AB7] text-white border border-[#534AB7] hover:bg-[#3C3489] hover:border-[#3C3489] transition-colors"
-          >
-            <Pencil className="w-3.5 h-3.5" /> Start planning
-          </Link>
+        {/* ── CTA ── */}
+        <div className="lp-cta-wrap">
+          <div className="lp-cta-block">
+            <h2>Ready to design your next AI literacy lesson?</h2>
+            <p>
+              Start with a standard, a classroom question, or a rough idea.<br />
+              The co-pilot turns it into something thoughtful and age-appropriate.
+            </p>
+            <Link href="/lesson/new" className="lp-btn primary">
+              <Pencil className="w-[14px] h-[14px]" aria-hidden="true" /> Start planning
+            </Link>
+          </div>
         </div>
-      </div>
+      </main>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-black/10 px-8 py-5 flex items-center justify-between text-[12px] text-[#9b9b9b]">
+      <footer className="lp-footer">
         <span>Teacher Co-Pilot · Design · Create · Reflect</span>
         <span>Built for K–12 educators</span>
       </footer>
-
-    </div>
+    </>
   )
 }
