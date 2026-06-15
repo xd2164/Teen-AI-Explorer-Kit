@@ -1,67 +1,67 @@
 "use client"
 import React from "react"
 import { TeacherMove } from "@/lib/types"
-import { Brain, Zap, RefreshCw } from "lucide-react"
+import { Pencil, Hammer, MessageCircle } from "lucide-react"
 
 interface TeacherMovesViewProps {
   moves: TeacherMove[]
 }
 
-// Map move types to phases: design (d), create (c), reflect (r)
-function getPhase(type: string): "d" | "c" | "r" {
-  if (type === "misconception_probe" || type === "guiding_question") return "d"
-  if (type === "think_aloud" || type === "pair_discussion" || type === "evidence_check") return "c"
-  return "r"
+const LESSON_FLOW = [
+  {
+    phase: "d" as const,
+    label: "Design — opening (0–8 min)",
+    moves: [
+      { time: "0–2",   title: "Activate prior knowledge",  body: '"How do you know if it\'s going to rain?" 2–3 responses. Don\'t correct yet.' },
+      { time: "2–5",   title: "Frame the big question",    body: "Write the student question where all can see. Don't explain further." },
+      { time: "5–8",   title: "Introduce AI connection",   body: '"Today you\'ll build the same kind of rule an AI weather system uses."' },
+    ],
+  },
+  {
+    phase: "c" as const,
+    label: "Create — card sort (8–38 min)",
+    moves: [
+      { time: "8–10",  title: "Distribute card sets",  body: "Cards face-down. Groups flip on your signal. 60 s to look before instructions." },
+      { time: "10–22", title: "Sort for patterns",     body: 'Circulate. "What pattern do you notice?" If stuck: "Which cards feel most important?"' },
+      { time: "22–28", title: "Write forecast rule",   body: 'One if-then statement per group: "If ___, then it will probably rain because ___."' },
+      { time: "28–35", title: "Test mystery cards",    body: 'Reveal cards. Before testing: "What would make your rule wrong?"' },
+      { time: "35–38", title: "Quick share-out",       body: "Each group shares rule + one failure case. Note variety on the board." },
+    ],
+  },
+  {
+    phase: "r" as const,
+    label: "Reflect — discussion + exit (38–45 min)",
+    moves: [
+      { time: "38–42", title: "AI connection + ethics", body: '"How is this similar to training an AI?" Then the neighborhood data-gap prompt.' },
+      { time: "42–45", title: "Exit ticket",            body: "Students write 3 answers independently. Collect before dismissal." },
+    ],
+  },
+]
+
+const PHASE_ICON = {
+  d: Pencil,
+  c: Hammer,
+  r: MessageCircle,
 }
 
-const PHASE_CONFIG: Record<"d" | "c" | "r", { label: string; Icon: React.ComponentType<{ className?: string }> }> = {
-  d: { label: "Design Phase",  Icon: Brain    },
-  c: { label: "Create Phase",  Icon: Zap      },
-  r: { label: "Reflect Phase", Icon: RefreshCw },
-}
-
-// Group moves by phase preserving order
-function groupMoves(moves: TeacherMove[]): Array<{ phase: "d" | "c" | "r"; moves: TeacherMove[] }> {
-  const groups: Array<{ phase: "d" | "c" | "r"; moves: TeacherMove[] }> = []
-  for (const move of moves) {
-    const phase = getPhase(move.type)
-    const last = groups[groups.length - 1]
-    if (last && last.phase === phase) {
-      last.moves.push(move)
-    } else {
-      groups.push({ phase, moves: [move] })
-    }
-  }
-  return groups
-}
-
-// Assign a rough time offset per move index
-function timeLabel(index: number): string {
-  const times = ["0:00", "5:00", "10:00", "15:00", "20:00", "25:00", "30:00"]
-  return times[index] ?? `${index * 5}:00`
-}
-
-export function TeacherMovesView({ moves }: TeacherMovesViewProps) {
-  const groups = groupMoves(moves)
-
+export function TeacherMovesView({ moves: _moves }: TeacherMovesViewProps) {
   return (
     <div>
-      {groups.map(({ phase, moves: phaseMoves }) => {
-        const cfg = PHASE_CONFIG[phase]
+      <span className="ws-bkh" style={{ marginTop: 0 }}>Annotated lesson flow — 45 min</span>
+      {LESSON_FLOW.map(({ phase, label, moves }) => {
+        const Icon = PHASE_ICON[phase]
         return (
           <div key={phase} style={{ marginBottom: "1rem" }}>
             <div className={`ws-mph ${phase}`}>
-              <cfg.Icon />
-              {cfg.label}
+              <Icon />
+              {label}
             </div>
-            {phaseMoves.map((move, i) => (
-              <div key={move.type} className="ws-mrow">
-                <span className="ws-mtime">{timeLabel(i)}</span>
+            {moves.map(m => (
+              <div key={m.time} className="ws-mrow">
+                <span className="ws-mtime">{m.time}</span>
                 <div>
-                  <h4>{move.label}</h4>
-                  <p><strong>When:</strong> {move.whenToUse}</p>
-                  <p style={{ marginTop: 3, fontStyle: "italic" }}>&ldquo;{move.whatToSay}&rdquo;</p>
-                  <p style={{ marginTop: 3 }}><strong>Why:</strong> {move.whyItHelps}</p>
+                  <h4>{m.title}</h4>
+                  <p>{m.body}</p>
                 </div>
               </div>
             ))}

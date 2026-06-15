@@ -1,98 +1,52 @@
 "use client"
 import React from "react"
 import { LessonDraft } from "@/lib/types"
-import { Layers, Users, Map, Cpu, Database, BookOpen, AlertTriangle } from "lucide-react"
+import { Lightbulb, GitBranch, AlertTriangle } from "lucide-react"
 
 interface DesignSpaceViewProps {
   draft: LessonDraft
 }
 
-type DsiClass = "id" | "al" | "wn"
+const DESIGN_ITEMS: { dsiClass: "id" | "al" | "wn"; icon: React.ReactNode; title: string; body: string }[] = [
+  {
+    dsiClass: "id",
+    icon: <Lightbulb />,
+    title: "Simulated AI demo",
+    body: "Show a decision-tree visualization alongside the card sort. One teacher device needed.",
+  },
+  {
+    dsiClass: "al",
+    icon: <GitBranch />,
+    title: "Alternative: pencil-and-paper table",
+    body: "Lower prep. Loses physical manipulation but easier to run without setup time.",
+  },
+  {
+    dsiClass: "id",
+    icon: <Lightbulb />,
+    title: "Extension: compare two AI systems",
+    body: "Groups test rules from urban vs. rural datasets. Which AI is more reliable?",
+  },
+  {
+    dsiClass: "wn",
+    icon: <AlertTriangle />,
+    title: "Tension: equity prompt timing",
+    body: "Mid-activity raises stakes but may derail the sort. Current closing placement is safer.",
+  },
+]
 
-interface Dimension {
-  icon: React.ReactNode
-  dsiClass: DsiClass
-  label: string
-  value: string | string[]
-}
-
-export function DesignSpaceView({ draft }: DesignSpaceViewProps) {
-  const dimensions: Dimension[] = [
-    {
-      icon: <Layers />,
-      dsiClass: "id",
-      label: "Task Stage",
-      value: "Planning + classroom activity + reflection",
-    },
-    {
-      icon: <Users />,
-      dsiClass: "id",
-      label: "Teacher Expertise",
-      value: "AI-curious beginner with subject-area depth",
-    },
-    {
-      icon: <Map />,
-      dsiClass: "id",
-      label: "Interaction Mode",
-      value: "Guided chat + structured draft panel",
-    },
-    {
-      icon: <Cpu />,
-      dsiClass: "al",
-      label: "AI Role",
-      value: "Co-designer, not replacement. Teacher retains all final decisions.",
-    },
-    {
-      icon: <Database />,
-      dsiClass: "id",
-      label: "Knowledge Sources Used",
-      value: draft.sourceUseSummary,
-    },
-    {
-      icon: <BookOpen />,
-      dsiClass: "id",
-      label: "Student Mode",
-      value: "Unplugged collaborative activity — no student AI accounts required",
-    },
-    {
-      icon: <AlertTriangle />,
-      dsiClass: "wn",
-      label: "Ethical Focus",
-      value: draft.reflectPhase.ethicalReflection,
-    },
-    {
-      icon: <Layers />,
-      dsiClass: "id",
-      label: "Output Types",
-      value: ["Teacher guide", "Student activity", "Discussion prompts", "Exit ticket", "Differentiation supports"],
-    },
-    {
-      icon: <AlertTriangle />,
-      dsiClass: "wn",
-      label: "Teacher Decision Points",
-      value: draft.teacherDecisionPoints,
-    },
-  ]
-
+export function DesignSpaceView({ draft: _draft }: DesignSpaceViewProps) {
   return (
     <div>
-      <span className="ws-bkh">Lesson Design Space</span>
-      <p style={{ fontSize: 12, color: "var(--t2)", lineHeight: 1.6, marginBottom: "1rem" }}>
-        This view surfaces the design choices, assumptions, and teacher decisions that shaped this lesson.
+      <span className="ws-bkh" style={{ marginTop: 0 }}>Design alternatives &amp; tensions</span>
+      <p style={{ fontSize: 12.5, color: "var(--t2)", marginBottom: ".875rem", lineHeight: 1.6 }}>
+        Ideas considered — ask the co-pilot to build any of these out.
       </p>
-
-      {dimensions.map((dim) => (
-        <div key={dim.label} className="ws-dsr">
-          <div className={`ws-dsi ${dim.dsiClass}`}>
-            {dim.icon}
-          </div>
+      {DESIGN_ITEMS.map(item => (
+        <div key={item.title} className="ws-dsr">
+          <div className={`ws-dsi ${item.dsiClass}`}>{item.icon}</div>
           <div>
-            <h4>{dim.label}</h4>
-            {Array.isArray(dim.value) ? (
-              <p>{dim.value.join(" · ")}</p>
-            ) : (
-              <p>{dim.value}</p>
-            )}
+            <h4>{item.title}</h4>
+            <p>{item.body}</p>
           </div>
         </div>
       ))}

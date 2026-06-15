@@ -6,7 +6,7 @@ import { LessonDraftPanel } from "@/components/lesson/lesson-draft-panel"
 import { DEMO_DOCUMENTS, DEMO_LESSON, DEMO_INITIAL_MESSAGES, DEMO_TEACHER_MOVES, DEMO_REVISIONS, DEMO_QUALITY_REVIEW } from "@/lib/demo-data"
 import { ChatMessage, LessonDraft, KnowledgeDocument } from "@/lib/types"
 import { getDemoResponse } from "@/lib/demo-responses"
-import { BookOpen, Pencil } from "lucide-react"
+import { BookOpen, Pencil, Presentation, Plus } from "lucide-react"
 
 export function AppShell() {
   const [messages, setMessages] = useState<ChatMessage[]>(DEMO_INITIAL_MESSAGES)
@@ -73,7 +73,9 @@ export function AppShell() {
         </div>
         <div className="ws-nav-links">
           <Link href="/library" className="ws-btn"><BookOpen /> Library</Link>
-          <span className="ws-bdg tl">Demo</span>
+          <Link href="/" className="ws-btn"><Presentation /> Demo</Link>
+          <button className="ws-btn on"><Pencil /> Lesson</button>
+          <Link href="/lesson/new" className="ws-btn cta"><Plus /> New lesson</Link>
         </div>
       </nav>
 

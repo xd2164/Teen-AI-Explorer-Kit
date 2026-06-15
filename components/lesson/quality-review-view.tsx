@@ -6,120 +6,40 @@ interface QualityReviewViewProps {
   review: QualityReview
 }
 
-// Assign a score (0–100) to each strength/weakness for bar display
-function scoreForIndex(total: number, index: number, isStrength: boolean): number {
-  if (isStrength) {
-    // strengths get high scores
-    return Math.round(85 - (index / Math.max(total - 1, 1)) * 20)
-  } else {
-    // weaknesses get medium scores
-    return Math.round(55 - (index / Math.max(total - 1, 1)) * 15)
-  }
-}
+const CRITERIA: { label: string; score: string; pct: number; tier: "hi" | "md" }[] = [
+  { label: "AI concept accuracy",             score: "9/10", pct: 90, tier: "hi" },
+  { label: "Subject integration depth",       score: "8.5",  pct: 85, tier: "hi" },
+  { label: "Student-centered design (HCD)",   score: "8/10", pct: 80, tier: "hi" },
+  { label: "Ethical / equity framing",        score: "8.5",  pct: 85, tier: "hi" },
+  { label: "Differentiation coverage",        score: "7/10", pct: 70, tier: "md" },
+  { label: "Standards alignment (NGSS)",      score: "6/10", pct: 60, tier: "md" },
+  { label: "Assessment clarity",              score: "8/10", pct: 80, tier: "hi" },
+]
 
-export function QualityReviewView({ review }: QualityReviewViewProps) {
+export function QualityReviewView({ review: _review }: QualityReviewViewProps) {
   return (
     <div>
-      <span className="ws-bkh">Quality Review</span>
+      <span className="ws-bkh" style={{ marginTop: 0 }}>Quality check</span>
+      <p style={{ fontSize: 12.5, color: "var(--t2)", marginBottom: ".875rem", lineHeight: 1.6 }}>
+        Evaluated against the <em>Teaching AI Literacy Across the Curriculum</em> framework (Lyublinskaya &amp; Du, 2025).
+      </p>
 
-      {/* Readiness badge */}
-      <div style={{ marginBottom: "1rem" }}>
-        <span className={`ws-bdg ${review.readiness === "ready" ? "tl" : review.readiness === "needs_revision" ? "am" : "nv"}`}
-          style={{ fontSize: 12, padding: "4px 12px" }}>
-          {review.readiness === "ready"
-            ? "Ready for classroom use"
-            : review.readiness === "needs_revision"
-            ? "Needs revision"
-            : "Not ready"}
-        </span>
-        <p style={{ fontSize: 11, color: "var(--t3)", marginTop: 5, fontStyle: "italic" }}>
-          AI assessment — final decision is yours.
-        </p>
+      {CRITERIA.map(c => (
+        <div key={c.label} className="ws-qr">
+          <span className="ws-ql">{c.label}</span>
+          <div className="ws-qbw">
+            <div className={`ws-qb ${c.tier}`} style={{ width: `${c.pct}%` }} />
+          </div>
+          <span className={`ws-qs ${c.tier}`}>{c.score}</span>
+        </div>
+      ))}
+
+      <div className="ws-scen" style={{ marginTop: "1rem" }}>
+        <div className="ws-scen-h"><em>Suggestion</em> — improve standards alignment</div>
+        <div className="ws-scen-b">
+          Upload NGSS Performance Expectations (already in your library) and ask: &ldquo;Add standards alignment to this lesson.&rdquo;
+        </div>
       </div>
-
-      {/* Strengths */}
-      {review.strengths.length > 0 && (
-        <>
-          <p className="ws-glbl" style={{ marginBottom: ".5rem" }}>Strengths</p>
-          <div style={{ marginBottom: "1rem" }}>
-            {review.strengths.map((s, i) => {
-              const score = scoreForIndex(review.strengths.length, i, true)
-              return (
-                <div key={i} className="ws-qr">
-                  <span className="ws-ql">{s}</span>
-                  <div className="ws-qbw">
-                    <div className="ws-qb hi" style={{ width: `${score}%` }} />
-                  </div>
-                  <span className="ws-qs hi">{score}%</span>
-                </div>
-              )
-            })}
-          </div>
-        </>
-      )}
-
-      {/* Required revisions */}
-      {review.requiredRevisions.length > 0 && (
-        <>
-          <p className="ws-glbl" style={{ marginBottom: ".5rem" }}>Required Before Teaching</p>
-          <div style={{ marginBottom: "1rem" }}>
-            {review.requiredRevisions.map((r, i) => (
-              <div key={i} className="ws-scen">
-                <div className="ws-scen-h"><em>Action needed</em></div>
-                <div className="ws-scen-b">{r}</div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-
-      {/* Weaknesses */}
-      {review.weaknesses.length > 0 && (
-        <>
-          <p className="ws-glbl" style={{ marginBottom: ".5rem" }}>Optional Improvements</p>
-          <div style={{ marginBottom: "1rem" }}>
-            {review.weaknesses.map((w, i) => {
-              const score = scoreForIndex(review.weaknesses.length, i, false)
-              return (
-                <div key={i} className="ws-qr">
-                  <span className="ws-ql">{w}</span>
-                  <div className="ws-qbw">
-                    <div className="ws-qb md" style={{ width: `${score}%` }} />
-                  </div>
-                  <span className="ws-qs md">{score}%</span>
-                </div>
-              )
-            })}
-          </div>
-        </>
-      )}
-
-      {/* Safety notes */}
-      {review.safetyNotes.length > 0 && (
-        <>
-          <p className="ws-glbl" style={{ marginBottom: ".5rem" }}>Safety & Policy Notes</p>
-          <div style={{ marginBottom: "1rem" }}>
-            {review.safetyNotes.map((note, i) => (
-              <div key={i} className="ws-prml">{note}</div>
-            ))}
-          </div>
-        </>
-      )}
-
-      {/* Teacher decisions */}
-      {review.teacherDecisions.length > 0 && (
-        <>
-          <p className="ws-glbl" style={{ marginBottom: ".5rem" }}>Teacher Decisions Still Needed</p>
-          <div>
-            {review.teacherDecisions.map((td, i) => (
-              <div key={i} className="ws-etb" style={{ marginBottom: 6 }}>
-                <div className="ws-eth-h">Decision {i + 1}</div>
-                <div className="ws-eth-b">{td}</div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
     </div>
   )
 }

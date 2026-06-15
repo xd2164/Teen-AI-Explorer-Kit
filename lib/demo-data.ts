@@ -294,54 +294,42 @@ export const DEMO_INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: "msg-0",
     role: "assistant",
-    content: `Hi! I'm your Design–Create–Reflect Teacher Co-Pilot.
-
-I can help you build an AI literacy lesson from your curriculum, past feedback, and teaching goals.
-
-What lesson are you planning?`,
+    content: "Hi! I'm your Design–Create–Reflect Co-Pilot. What lesson are you planning?",
     timestamp: new Date("2024-01-15T09:00:00"),
     stage: "understand",
   },
   {
     id: "msg-1",
     role: "user",
-    content: "I need a 6th grade science lesson on weather prediction. Students should understand how patterns in data are used to make forecasts.",
+    content: "6th grade science — weather prediction and how patterns in data are used to make forecasts.",
     timestamp: new Date("2024-01-15T09:01:00"),
   },
   {
     id: "msg-2",
     role: "assistant",
-    content: `Great. I can connect this to AI literacy by helping students understand that AI systems also use patterns in data to make predictions.
-
-A few quick questions:
-1. How long is the lesson?
-2. Should it use student devices, or be unplugged?
-3. Do you want me to use your uploaded curriculum map and past lesson feedback?`,
+    content: `A few quick questions:
+- How long is the lesson?
+- Student devices, or unplugged?
+- Use your curriculum map and past feedback?`,
     timestamp: new Date("2024-01-15T09:01:30"),
     stage: "understand",
   },
   {
     id: "msg-3",
     role: "user",
-    content: "45 minutes, unplugged, and yes use my curriculum map.",
+    content: "45 minutes, unplugged, yes use my curriculum map.",
     timestamp: new Date("2024-01-15T09:02:00"),
   },
   {
     id: "msg-4",
     role: "assistant",
-    content: `I found three useful pieces of context from your uploaded materials:
-
-- **Curriculum map:** Emphasizes weather systems, data patterns, and evidence-based reasoning in your grade 6 science unit.
-- **Prior lesson feedback:** You noted that students sometimes confused prediction with certainty — this is a common misconception worth surfacing early.
-- **School AI policy:** Recommends activities that do not require student AI accounts.
-
-I'll use all three to build the lesson. Generating your first draft now...`,
+    content: "Found 3 relevant pieces. Generating your first draft now…",
     timestamp: new Date("2024-01-15T09:02:30"),
     stage: "retrieve",
     retrievalSummary: [
-      "Curriculum map: weather systems and data patterns",
-      "Prior feedback: students confused prediction with certainty",
-      "School AI policy: no student AI accounts required",
+      "Curriculum: weather systems & data patterns",
+      "Feedback: students confused prediction with certainty",
+      "Policy: no student AI accounts",
     ],
   },
   {
@@ -353,17 +341,9 @@ I'll use all three to build the lesson. Generating your first draft now...`,
   {
     id: "msg-6",
     role: "assistant",
-    content: `I revised the lesson in two ways:
+    content: `Revised: (1) card sort is now physically interactive; (2) sentence frames + bilingual pair discussion for ELL.
 
-**What changed:**
-1. Made the card sort more physically interactive — students now sort 12 weather data cards to find patterns, rather than reading from a table.
-2. Added multilingual learner supports: sentence frames, pre-taught vocabulary, and bilingual pair discussion before whole-group sharing.
-
-**Why:** Your curriculum map showed reading-heavy prior lessons in this unit. Making the activity hands-on reduces reading load. The multilingual supports use your school's recommended approach of sentence frames before group discussion.
-
-**Tradeoff:** The card sort takes a bit more setup time. You'll need to print and cut the card sets before class (about 15 minutes). I've added this to the materials list.
-
-**Teacher decision needed:** How would you like to group students — pairs, groups of 3, or groups of 4? This affects how many card sets you'll need to print.`,
+**Decision needed:** Group size — pairs, 3s, or 4s?`,
     timestamp: new Date("2024-01-15T10:16:00"),
     stage: "revise",
   },
