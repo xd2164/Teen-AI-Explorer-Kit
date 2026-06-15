@@ -10,75 +10,86 @@ interface MessageBubbleProps {
   message: ChatMessage
 }
 
+const STAGE_LABELS: Record<string, { label: string; color: string }> = {
+  understand: { label: "Understanding", color: "bg-gray-100 text-gray-600" },
+  retrieve:   { label: "Retrieving context", color: "bg-blue-100 text-blue-700" },
+  generate:   { label: "Generating lesson", color: "bg-green-100 text-green-700" },
+  revise:     { label: "Revising", color: "bg-amber-100 text-amber-700" },
+  reflect:    { label: "Reflecting", color: "bg-purple-100 text-purple-700" },
+}
+
 export function MessageBubble({ message }: MessageBubbleProps) {
   const isAssistant = message.role === "assistant"
+  const stage = message.stage ? STAGE_LABELS[message.stage] : null
 
   return (
     <div className={cn("flex items-start gap-3", !isAssistant && "flex-row-reverse")}>
       {/* Avatar */}
       <div className={cn(
-        "w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5",
-        isAssistant ? "bg-blue-600" : "bg-gray-200"
+        "w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm",
+        isAssistant ? "bg-blue-600" : "bg-gray-700"
       )}>
         {isAssistant
-          ? <Sparkles className="w-3.5 h-3.5 text-white" />
-          : <User className="w-3.5 h-3.5 text-gray-600" />
+          ? <Sparkles className="w-4 h-4 text-white" />
+          : <User className="w-4 h-4 text-white" />
         }
       </div>
 
       <div className={cn("max-w-[85%] space-y-2", !isAssistant && "items-end flex flex-col")}>
+        {/* Stage pill */}
+        {isAssistant && stage && (
+          <span className={cn("inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium", stage.color)}>
+            {stage.label}
+          </span>
+        )}
+
         {/* Retrieval summary */}
         {isAssistant && message.retrievalSummary && message.retrievalSummary.length > 0 && (
-          <div className="bg-blue-50 border border-blue-100 rounded-lg px-3 py-2 text-xs">
-            <div className="flex items-center gap-1.5 text-blue-700 font-medium mb-1.5">
-              <Database className="w-3 h-3" />
-              Context retrieved from your materials
+          <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-2 text-blue-700 font-semibold text-xs mb-2">
+              <Database className="w-3.5 h-3.5" />
+              Context pulled from your materials
             </div>
-            <ul className="space-y-0.5">
+            <ul className="space-y-1">
               {message.retrievalSummary.map((item, i) => (
-                <li key={i} className="text-blue-600 flex items-start gap-1">
-                  <span className="mt-0.5">·</span>
-                  <span>{item}</span>
+                <li key={i} className="flex items-start gap-2 text-sm text-blue-800">
+                  <span className="text-blue-400 mt-0.5 flex-shrink-0">·</span>
+                  {item}
                 </li>
               ))}
             </ul>
           </div>
         )}
 
-        {/* Message bubble */}
+        {/* Bubble */}
         <div className={cn(
-          "rounded-xl px-4 py-3 text-sm shadow-sm",
+          "rounded-2xl px-5 py-4 shadow-sm",
           isAssistant
             ? "bg-white border border-gray-200 rounded-tl-sm text-gray-800"
             : "bg-blue-600 text-white rounded-tr-sm"
         )}>
           {isAssistant ? (
-            <div className="prose prose-sm max-w-none prose-p:my-1 prose-li:my-0.5 prose-headings:my-2">
+            <div className="prose prose-sm max-w-none text-gray-800
+              prose-p:my-1.5 prose-p:leading-relaxed
+              prose-li:my-0.5 prose-li:leading-relaxed
+              prose-headings:text-gray-900 prose-headings:font-semibold prose-headings:mt-3 prose-headings:mb-1.5
+              prose-strong:text-gray-900 prose-strong:font-semibold
+              prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded prose-code:text-sm
+              prose-hr:border-gray-200 prose-hr:my-3
+              prose-blockquote:border-blue-300 prose-blockquote:text-gray-600">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {message.content}
               </ReactMarkdown>
             </div>
           ) : (
-            <p className="whitespace-pre-wrap">{message.content}</p>
+            <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
           )}
         </div>
 
-        {/* Stage badge + timestamp */}
-        <div className={cn("flex items-center gap-2 text-xs text-gray-400", !isAssistant && "flex-row-reverse")}>
-          {message.stage && isAssistant && (
-            <span className={cn(
-              "px-2 py-0.5 rounded-full text-xs font-medium",
-              message.stage === "understand" && "bg-gray-100 text-gray-600",
-              message.stage === "retrieve" && "bg-blue-50 text-blue-600",
-              message.stage === "generate" && "bg-green-50 text-green-600",
-              message.stage === "revise" && "bg-amber-50 text-amber-600",
-              message.stage === "reflect" && "bg-purple-50 text-purple-600",
-            )}>
-              {message.stage}
-            </span>
-          )}
-          <span>{formatDate(message.timestamp)}</span>
-        </div>
+        {/* Timestamp */}
+        <p className={cn("text-xs text-gray-400 px-1", !isAssistant && "text-right")}>
+          {formatDate(message.timestamp)}
+        </p>
       </div>
     </div>
   )
