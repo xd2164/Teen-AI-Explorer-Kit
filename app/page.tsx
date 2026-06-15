@@ -1,273 +1,230 @@
 import Link from "next/link"
-import { Brain, Pencil, RefreshCw, ArrowRight, Upload, MessageSquare, Lightbulb, BookOpen, Sparkles, CheckCircle } from "lucide-react"
+import {
+  ArrowRight, Plus, Sparkles, BookOpen, Download,
+  X, Check, Pencil, UserX
+} from "lucide-react"
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-white text-[#1a1a1a] antialiased leading-relaxed">
 
-      {/* ── Nav ─────────────────────────────────────────────────────── */}
-      <nav className="border-b border-slate-200/60 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-semibold text-slate-800 text-sm">Teacher Co-Pilot</span>
+      {/* ── Nav ── */}
+      <nav className="flex items-center justify-between px-8 py-3.5 border-b border-black/10 bg-white sticky top-0 z-[100]">
+        <Link href="/" className="flex items-center gap-2.5 font-medium text-[15px] text-[#1a1a1a]">
+          <div className="w-8 h-8 rounded-lg bg-[#534AB7] flex items-center justify-center flex-shrink-0">
+            <Pencil className="w-[15px] h-[15px] text-white" />
           </div>
-          <div className="flex items-center gap-3">
-            <Link href="/library" className="text-sm text-slate-500 hover:text-slate-700 font-medium transition-colors flex items-center gap-1.5">
-              <BookOpen className="w-4 h-4" />
-              Library
-            </Link>
-            <Link
-              href="/lesson/new"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shadow-sm"
-            >
-              Start Planning
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+          Teacher Co-Pilot
+        </Link>
+        <div className="flex items-center gap-1.5">
+          <Link
+            href="/library"
+            className="text-[13px] text-[#6b6b6b] px-3 py-1.5 rounded-lg border border-transparent hover:bg-[#f7f7f5] hover:text-[#1a1a1a] transition-colors"
+          >
+            Library
+          </Link>
+          <Link
+            href="/lesson/new"
+            className="inline-flex items-center gap-1.5 text-[13px] font-medium bg-[#534AB7] text-white px-3 py-1.5 rounded-lg border border-[#534AB7] hover:bg-[#3C3489] hover:border-[#3C3489] transition-colors"
+          >
+            Start planning <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </nav>
 
-      <div className="max-w-6xl mx-auto px-6">
+      {/* ── Hero ── */}
+      <section className="pt-20 pb-16 px-8 max-w-[700px] mx-auto text-center">
+        <div className="inline-flex items-center gap-1.5 text-[12px] font-medium bg-[#EEEDFE] text-[#534AB7] px-3.5 py-1 rounded-full mb-6">
+          <Sparkles className="w-3 h-3" />
+          Built for K–12 educators
+        </div>
 
-        {/* ── Hero ────────────────────────────────────────────────────── */}
-        <section className="pt-20 pb-16 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-8 border border-blue-200">
-            <Sparkles className="w-3.5 h-3.5" />
-            Design · Create · Reflect
+        <h1 className="text-[42px] font-medium leading-[1.18] tracking-[-0.5px] mb-5">
+          Design, teach, and refine{" "}
+          <em className="not-italic text-[#534AB7]">AI literacy lessons</em>
+          {" "}— across every subject
+        </h1>
+
+        <p className="text-[17px] text-[#6b6b6b] leading-[1.7] max-w-[500px] mx-auto mb-8">
+          A memory-enabled planning partner that remembers what worked in your classroom and builds on it every time.
+        </p>
+
+        <div className="flex items-center justify-center gap-2.5 flex-wrap">
+          <Link
+            href="/lesson/new"
+            className="inline-flex items-center gap-1.5 px-[22px] py-2.5 rounded-lg text-[14px] font-medium bg-[#534AB7] text-white border border-[#534AB7] hover:bg-[#3C3489] hover:border-[#3C3489] transition-colors"
+          >
+            <Plus className="w-3.5 h-3.5" /> Start a new lesson
+          </Link>
+          <Link
+            href="/library"
+            className="inline-flex items-center gap-1.5 px-[22px] py-2.5 rounded-lg text-[14px] font-medium bg-transparent text-[#1a1a1a] border border-black/[0.15] hover:bg-[#f7f7f5] transition-colors"
+          >
+            View lesson library
+          </Link>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 mt-7 flex-wrap">
+          {[
+            { icon: <BookOpen className="w-3 h-3 text-[#534AB7]" />, label: "Works with any K–12 subject" },
+            { icon: <UserX className="w-3 h-3 text-[#534AB7]" />, label: "No student AI accounts needed" },
+            { icon: <Download className="w-3 h-3 text-[#534AB7]" />, label: "Export to Markdown in one click" },
+          ].map(({ icon, label }) => (
+            <span key={label} className="inline-flex items-center gap-1.5 text-[12px] text-[#6b6b6b] border border-black/10 px-3 py-1 rounded-full bg-white">
+              {icon}
+              {label}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <div className="h-px bg-black/10" />
+
+      {/* ── Design / Create / Reflect ── */}
+      <section className="py-14 px-8 max-w-[760px] mx-auto">
+        <p className="text-[11px] font-medium tracking-[0.09em] uppercase text-[#534AB7] mb-2.5">How it works</p>
+        <h2 className="text-[26px] font-medium mb-2.5">A workflow built around how you actually teach</h2>
+        <p className="text-[15px] text-[#6b6b6b] leading-[1.7] max-w-[520px] mb-9">
+          Not a one-shot generator — a three-phase partner for the full instructional cycle.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {[
+            {
+              phase: "Phase 1",
+              title: "Design",
+              desc: "Frame learning goals, surface student questions, connect to standards, and plan the full lesson flow before writing a single activity.",
+            },
+            {
+              phase: "Phase 2",
+              title: "Create",
+              desc: "Build activities, student steps, teacher moves, and discussion prompts — then revise through natural conversation until it's classroom-ready.",
+            },
+            {
+              phase: "Phase 3",
+              title: "Reflect",
+              desc: "Save post-lesson insights as reusable memory. Future lessons automatically improve from what you learn about your students.",
+            },
+          ].map(({ phase, title, desc }) => (
+            <div key={phase} className="bg-white border border-black/10 rounded-xl py-5 pr-5 pl-6 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-[3px] h-full bg-[#534AB7]" />
+              <span className="inline-block text-[11px] font-medium text-[#534AB7] bg-[#EEEDFE] px-2.5 py-0.5 rounded-full mb-3">
+                {phase}
+              </span>
+              <h3 className="text-[16px] font-medium mb-1.5">{title}</h3>
+              <p className="text-[13px] text-[#6b6b6b] leading-[1.6]">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="h-px bg-black/10" />
+
+      {/* ── Compare ── */}
+      <section className="py-14 px-8 max-w-[760px] mx-auto">
+        <p className="text-[11px] font-medium tracking-[0.09em] uppercase text-[#534AB7] mb-2.5">What makes this different</p>
+        <h2 className="text-[26px] font-medium mb-2.5">A planning partner, not a plan printer</h2>
+        <p className="text-[15px] text-[#6b6b6b] leading-[1.7] max-w-[520px] mb-9">
+          The difference shows up in every interaction.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="bg-white border border-black/10 rounded-xl p-5">
+            <h4 className="text-[12px] font-medium tracking-[0.05em] uppercase text-[#9b9b9b] mb-4">Other AI tools</h4>
+            <ul className="flex flex-col gap-2.5">
+              {[
+                "One-shot output, no revision",
+                "No memory of what worked",
+                "Ignores your curriculum context",
+                "Generic, not subject-aligned",
+              ].map(item => (
+                <li key={item} className="flex items-start gap-2 text-[13px] leading-[1.5]">
+                  <X className="w-3.5 h-3.5 text-[#9b9b9b] flex-shrink-0 mt-0.5" />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
+          <div className="bg-white border border-[#AFA9EC] rounded-xl p-5">
+            <h4 className="text-[12px] font-medium tracking-[0.05em] uppercase text-[#9b9b9b] mb-4">Teacher Co-Pilot</h4>
+            <ul className="flex flex-col gap-2.5">
+              {[
+                "Revise through natural conversation",
+                "Saves teaching insights as memory",
+                "Uses your curriculum and standards",
+                "AI literacy embedded in every subject",
+              ].map(item => (
+                <li key={item} className="flex items-start gap-2 text-[13px] leading-[1.5]">
+                  <Check className="w-3.5 h-3.5 text-[#534AB7] flex-shrink-0 mt-0.5" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
 
-          <h1 className="text-5xl font-bold text-slate-900 mb-6 leading-tight tracking-tight">
-            Teacher Co-Pilot<br />
-            <span className="text-blue-600">for AI Literacy</span>
-          </h1>
+      <div className="h-px bg-black/10" />
 
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-            A memory-enabled planning partner that helps K–12 teachers design, teach,
-            and improve AI literacy lessons — across every subject.
+      {/* ── Steps ── */}
+      <section className="py-14 px-8 max-w-[760px] mx-auto">
+        <p className="text-[11px] font-medium tracking-[0.09em] uppercase text-[#534AB7] mb-2.5">Get started</p>
+        <h2 className="text-[26px] font-medium mb-2.5">From rough idea to classroom-ready lesson</h2>
+        <p className="text-[15px] text-[#6b6b6b] leading-[1.7] max-w-[520px] mb-9">
+          Three steps in a single conversation.
+        </p>
+        <ol className="flex flex-col">
+          {[
+            {
+              num: "1",
+              title: "Upload your curriculum or standards",
+              desc: "Bring in unit goals, academic standards, school AI policy, or past lesson feedback. The co-pilot retrieves the right context automatically.",
+            },
+            {
+              num: "2",
+              title: "Tell the co-pilot what you're planning",
+              desc: "Describe the grade level, topic, lesson goal, and student needs. The co-pilot asks only what it needs and generates a first draft.",
+            },
+            {
+              num: "3",
+              title: "Revise, teach, and reflect",
+              desc: "Improve the lesson through conversation, export when ready, and save post-lesson insights as memory for next time.",
+            },
+          ].map(({ num, title, desc }, i) => (
+            <li key={num} className={`flex gap-5 items-start py-5 ${i < 2 ? "border-b border-black/10" : ""}`}>
+              <div className="w-8 h-8 rounded-full bg-[#EEEDFE] text-[#534AB7] flex items-center justify-center text-[13px] font-medium flex-shrink-0">
+                {num}
+              </div>
+              <div>
+                <h3 className="text-[15px] font-medium mb-1">{title}</h3>
+                <p className="text-[13px] text-[#6b6b6b] leading-[1.6]">{desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ── CTA ── */}
+      <div className="px-8 pb-14">
+        <div className="bg-[#EEEDFE] rounded-xl px-8 py-11 text-center max-w-[760px] mx-auto">
+          <h2 className="text-[24px] font-medium mb-3">Ready to design your next AI literacy lesson?</h2>
+          <p className="text-[15px] text-[#534AB7] mb-7 leading-[1.7]">
+            Start with a standard, a classroom question, or a rough idea.<br />
+            The co-pilot turns it into something thoughtful and age-appropriate.
           </p>
-
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link
-              href="/lesson/new"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-600 text-white rounded-2xl font-semibold text-base hover:bg-blue-700 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
-            >
-              Start a New Lesson
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/library"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-slate-700 border border-slate-200 rounded-2xl font-semibold text-base hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm"
-            >
-              <BookOpen className="w-4 h-4" />
-              View Lesson Library
-            </Link>
-          </div>
-
-          {/* Social proof strip */}
-          <div className="mt-12 flex items-center justify-center gap-6 flex-wrap">
-            {["Works with any K–12 subject", "No student AI accounts needed", "Export to Markdown in one click"].map(item => (
-              <div key={item} className="flex items-center gap-2 text-sm text-slate-500">
-                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                {item}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── DCR Cards ───────────────────────────────────────────────── */}
-        <section className="pb-20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-            <div className="group bg-white rounded-2xl p-8 border border-blue-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all">
-              <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-blue-200 transition-colors">
-                <Brain className="w-6 h-6 text-blue-600" />
-              </div>
-              <div className="inline-flex items-center px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-3 border border-blue-100">
-                Phase 1
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Design</h3>
-              <p className="text-base text-slate-600 leading-relaxed">
-                Frame the learning goal, surface student questions, connect to standards, and plan the full lesson flow before writing a single activity.
-              </p>
-            </div>
-
-            <div className="group bg-white rounded-2xl p-8 border border-emerald-100 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all">
-              <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-emerald-200 transition-colors">
-                <Pencil className="w-6 h-6 text-emerald-600" />
-              </div>
-              <div className="inline-flex items-center px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold mb-3 border border-emerald-100">
-                Phase 2
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Create</h3>
-              <p className="text-base text-slate-600 leading-relaxed">
-                Build activities, student steps, teacher moves, discussion prompts, and classroom materials — then revise through natural conversation.
-              </p>
-            </div>
-
-            <div className="group bg-white rounded-2xl p-8 border border-violet-100 shadow-sm hover:shadow-md hover:border-violet-200 transition-all">
-              <div className="w-12 h-12 bg-violet-100 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-violet-200 transition-colors">
-                <RefreshCw className="w-6 h-6 text-violet-600" />
-              </div>
-              <div className="inline-flex items-center px-2.5 py-1 bg-violet-50 text-violet-700 rounded-full text-xs font-semibold mb-3 border border-violet-100">
-                Phase 3
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Reflect</h3>
-              <p className="text-base text-slate-600 leading-relaxed">
-                Save post-lesson insights as reusable memory. Future lessons improve from what you learn about your students and your teaching.
-              </p>
-            </div>
-
-          </div>
-        </section>
-
-        {/* ── Comparison ──────────────────────────────────────────────── */}
-        <section className="pb-20">
-          <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-            <div className="px-8 pt-8 pb-4">
-              <h2 className="text-2xl font-bold text-slate-900 mb-1">What makes this different</h2>
-              <p className="text-slate-500 text-base">This is not a lesson-plan generator. It's a planning partner.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
-              <div className="px-8 py-8 bg-slate-50/50">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-red-100 text-red-700 rounded-full text-sm font-semibold mb-5">
-                  Not this
-                </div>
-                <p className="text-lg text-slate-500 italic leading-relaxed">
-                  "A chatbot that writes lesson plans for teachers."
-                </p>
-                <ul className="mt-5 space-y-2.5">
-                  {[
-                    "One-shot output, no revision",
-                    "No memory of what worked",
-                    "Ignores your curriculum context",
-                    "Generic, not subject-aligned",
-                  ].map(item => (
-                    <li key={item} className="flex items-center gap-2.5 text-sm text-slate-400">
-                      <span className="w-4 h-4 rounded-full bg-red-100 text-red-400 flex items-center justify-center text-xs flex-shrink-0">✕</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="px-8 py-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-5">
-                  This
-                </div>
-                <p className="text-lg text-slate-800 font-medium leading-relaxed">
-                  "A planning partner that supports the full instructional design process — planning, creating, teaching, reflecting, and reusing knowledge over time."
-                </p>
-                <ul className="mt-5 space-y-2.5">
-                  {[
-                    "Revise through natural conversation",
-                    "Saves teaching insights as memory",
-                    "Uses your curriculum and standards",
-                    "AI literacy embedded in every subject",
-                  ].map(item => (
-                    <li key={item} className="flex items-center gap-2.5 text-sm text-slate-600">
-                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Steps ───────────────────────────────────────────────────── */}
-        <section className="pb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">Get started in 3 steps</h2>
-            <p className="text-slate-500 text-base max-w-lg mx-auto">From rough idea to classroom-ready lesson in a single conversation.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-            {/* Connector line (desktop only) */}
-            <div className="hidden md:block absolute top-10 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-blue-200 via-violet-200 to-blue-200 -z-0" />
-
-            {[
-              {
-                step: "1",
-                icon: <Upload className="w-5 h-5 text-blue-600" />,
-                iconBg: "bg-blue-100",
-                title: "Upload your curriculum or standards",
-                desc: "Bring in your unit goals, academic standards, school AI policy, or past lesson feedback. The co-pilot retrieves the right context automatically.",
-              },
-              {
-                step: "2",
-                icon: <MessageSquare className="w-5 h-5 text-violet-600" />,
-                iconBg: "bg-violet-100",
-                title: "Tell the co-pilot what you are planning",
-                desc: "Describe the grade level, topic, lesson goal, and student needs. The co-pilot asks only what it needs and generates a first draft.",
-              },
-              {
-                step: "3",
-                icon: <Lightbulb className="w-5 h-5 text-emerald-600" />,
-                iconBg: "bg-emerald-100",
-                title: "Revise, teach, and reflect",
-                desc: "Improve the lesson through conversation, export when ready, and save post-lesson insights as reusable memory for next time.",
-              },
-            ].map(({ step, icon, iconBg, title, desc }) => (
-              <div key={step} className="relative bg-white rounded-2xl p-7 border border-slate-200 shadow-sm flex flex-col items-center text-center">
-                <div className="relative mb-5">
-                  <div className={`w-14 h-14 ${iconBg} rounded-2xl flex items-center justify-center`}>
-                    {icon}
-                  </div>
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 text-white rounded-full text-xs font-bold flex items-center justify-center shadow-sm">
-                    {step}
-                  </div>
-                </div>
-                <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">{title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── Final CTA ───────────────────────────────────────────────── */}
-        <section className="pb-20">
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl px-10 py-14 text-center shadow-xl relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-1/2 translate-x-1/2" />
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full translate-y-1/2 -translate-x-1/2" />
-            </div>
-
-            <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 text-white rounded-full text-sm font-semibold mb-6">
-                <Sparkles className="w-4 h-4" />
-                Ready when you are
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-4 leading-snug">
-                Ready to design your next<br />AI literacy lesson?
-              </h2>
-              <p className="text-blue-100 text-base max-w-xl mx-auto mb-8 leading-relaxed">
-                Start with a standard, a classroom question, or a rough idea.
-                The co-pilot will help you turn it into a thoughtful, age-appropriate
-                AI literacy lesson — with your curriculum context already built in.
-              </p>
-              <Link
-                href="/lesson/new"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-700 rounded-2xl font-bold text-base hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-              >
-                Start Planning
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Footer ──────────────────────────────────────────────────── */}
-        <footer className="pb-10 text-center">
-          <p className="text-sm text-slate-400">
-            Design · Create · Reflect &nbsp;·&nbsp; Built for K–12 educators
-          </p>
-        </footer>
-
+          <Link
+            href="/lesson/new"
+            className="inline-flex items-center gap-1.5 px-[22px] py-2.5 rounded-lg text-[14px] font-medium bg-[#534AB7] text-white border border-[#534AB7] hover:bg-[#3C3489] hover:border-[#3C3489] transition-colors"
+          >
+            <Pencil className="w-3.5 h-3.5" /> Start planning
+          </Link>
+        </div>
       </div>
-    </main>
+
+      {/* ── Footer ── */}
+      <footer className="border-t border-black/10 px-8 py-5 flex items-center justify-between text-[12px] text-[#9b9b9b]">
+        <span>Teacher Co-Pilot · Design · Create · Reflect</span>
+        <span>Built for K–12 educators</span>
+      </footer>
+
+    </div>
   )
 }
